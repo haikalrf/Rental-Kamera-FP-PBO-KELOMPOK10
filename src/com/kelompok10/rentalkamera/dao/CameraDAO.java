@@ -19,8 +19,26 @@ public class CameraDAO {
         }
     }
 
-    public List<Camera> getAllCamera() {
-        List<Camera> camera = new ArrayList<>();
+    //CREATE
+    public boolean insertCamera(Camera camera) {
+        String sql = "INSERT INTO cameras (brand, type, rental_price, stock) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, camera.getBrand());
+            pstmt.setString(2, camera.getType());
+            pstmt.setDouble(3, camera.getHargaRental());
+            pstmt.setInt(4, camera.getStok());
+            pstmt.executeUpdate();
+            
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //READ
+    public List<Camera> getAllCameras() {
+        List<Camera> cameras = new ArrayList<>();
         String sql = "SELECT * FROM cameras";
 
         try (Statement stmt = connection.createStatement();
@@ -34,53 +52,49 @@ public class CameraDAO {
                         resultset.getDouble("rental_price"),
                         resultset.getInt("stock")
                 );
-                camera.add(cam);
+                cameras.add(cam);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return camera;
+        return cameras;
     }
 
-    public void insertCamera(Camera cam) {
-        String sql = "INSERT INTO cameras (brand, type, rental_price, stock) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, cam.getBrand());
-            pstmt.setString(2, cam.getType());
-            pstmt.setDouble(3, cam.getHargaRental());
-            pstmt.setInt(4, cam.getStok());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void updateCamera(Camera cam) {
+    //UPDATE
+    public boolean updateCamera(Camera camera) {
         String sql = "UPDATE cameras SET brand = ?, type = ?, rental_price = ?, stock = ? WHERE id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, cam.getBrand());
-            pstmt.setString(2, cam.getType());
-            pstmt.setDouble(3, cam.getHargaRental());
-            pstmt.setInt(4, cam.getStok());
-            pstmt.setInt(5, cam.getId());
+            pstmt.setString(1, camera.getBrand());
+            pstmt.setString(2, camera.getType());
+            pstmt.setDouble(3, camera.getHargaRental());
+            pstmt.setInt(4, camera.getStok());
+            pstmt.setInt(5, camera.getId());
             pstmt.executeUpdate();
+
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
-    public void deleteCamera(int id) {
+    //DELETE
+    public boolean deleteCamera(int id) {
         String sql = "DELETE FROM cameras WHERE id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
+
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
-    public List<Camera> searchCameras(String keyword) {
+    //SEARCH
+    public List<Camera> searchCamera(String keyword) {
         List<Camera> cameras = new ArrayList<>();
         String sql = "SELECT * FROM cameras WHERE LOWER(brand) LIKE ? OR LOWER(type) LIKE ?";
 
