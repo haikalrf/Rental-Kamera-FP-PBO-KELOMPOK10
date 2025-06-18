@@ -24,15 +24,15 @@ public class CameraDAO {
         String sql = "SELECT * FROM cameras";
 
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             ResultSet resultset = stmt.executeQuery(sql)) {
 
-            while (rs.next()) {
+            while (resultset.next()) {
                 Camera cam = new Camera(
-                        rs.getInt("id"),
-                        rs.getString("brand"),
-                        rs.getString("type"),
-                        rs.getDouble("rental_price"),
-                        rs.getInt("stock")
+                        resultset.getInt("id"),
+                        resultset.getString("brand"),
+                        resultset.getString("type"),
+                        resultset.getDouble("rental_price"),
+                        resultset.getInt("stock")
                 );
                 camera.add(cam);
             }
@@ -89,14 +89,14 @@ public class CameraDAO {
             pstmt.setString(1, pattern);
             pstmt.setString(2, pattern);
 
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
+            try (ResultSet resultset = pstmt.executeQuery()) {
+                while (resultset.next()) {
                     Camera cam = new Camera(
-                            rs.getInt("id"),
-                            rs.getString("brand"),
-                            rs.getString("type"),
-                            rs.getDouble("rental_price"),
-                            rs.getInt("stock")
+                            resultset.getInt("id"),
+                            resultset.getString("brand"),
+                            resultset.getString("type"),
+                            resultset.getDouble("rental_price"),
+                            resultset.getInt("stock")
                     );
                     cameras.add(cam);
                 }
