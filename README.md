@@ -1,2 +1,2 @@
-# Rental-Kamera-FP-RPL-KELOMPOK10
+# Rental-Kamera-FP-PBO-KELOMPOK10
 Final Project PBO Semester 4
