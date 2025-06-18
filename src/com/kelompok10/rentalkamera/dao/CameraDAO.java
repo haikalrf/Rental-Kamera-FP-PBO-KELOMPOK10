@@ -21,7 +21,7 @@ public class CameraDAO {
 
     //CREATE
     public boolean insertCamera(Camera camera) {
-        String sql = "INSERT INTO cameras (brand, type, rental_price, stock) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO cameras (brand, type, harga_rental, stok) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, camera.getBrand());
             pstmt.setString(2, camera.getType());
@@ -49,8 +49,8 @@ public class CameraDAO {
                         resultset.getInt("id"),
                         resultset.getString("brand"),
                         resultset.getString("type"),
-                        resultset.getDouble("rental_price"),
-                        resultset.getInt("stock")
+                        resultset.getDouble("harga_rental"),
+                        resultset.getInt("stok")
                 );
                 cameras.add(cam);
             }
@@ -63,7 +63,7 @@ public class CameraDAO {
 
     //UPDATE
     public boolean updateCamera(Camera camera) {
-        String sql = "UPDATE cameras SET brand = ?, type = ?, rental_price = ?, stock = ? WHERE id = ?";
+        String sql = "UPDATE cameras SET brand = ?, type = ?, harga_rental = ?, stok = ? WHERE id = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, camera.getBrand());
             pstmt.setString(2, camera.getType());
@@ -109,8 +109,8 @@ public class CameraDAO {
                             resultset.getInt("id"),
                             resultset.getString("brand"),
                             resultset.getString("type"),
-                            resultset.getDouble("rental_price"),
-                            resultset.getInt("stock")
+                            resultset.getDouble("harga_rental"),
+                            resultset.getInt("stok")
                     );
                     cameras.add(cam);
                 }

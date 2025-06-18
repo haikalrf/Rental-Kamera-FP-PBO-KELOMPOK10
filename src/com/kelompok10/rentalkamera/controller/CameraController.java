@@ -9,8 +9,8 @@ public class CameraController {
     
     private CameraDAO cameraDAO = new CameraDAO();
 
-    public boolean tambahKamera(String brand, String type, double price, int stock) {
-        Camera camera = new Camera(brand, type, price, stock);
+    public boolean tambahKamera(String brand, String type, double harga, int stok) {
+        Camera camera = new Camera(brand, type, harga, stok);
         return cameraDAO.insertCamera(camera);
     }
 
@@ -18,8 +18,8 @@ public class CameraController {
         return cameraDAO.getAllCameras();
     }
 
-    public boolean ubahKamera(int id, String brand, String type, double price, int stock) {
-        Camera camera = new Camera(id, brand, type, price, stock);
+    public boolean ubahKamera(int id, String brand, String type, double harga, int stok) {
+        Camera camera = new Camera(id, brand, type, harga, stok);
         return cameraDAO.updateCamera(camera);
     }
 
