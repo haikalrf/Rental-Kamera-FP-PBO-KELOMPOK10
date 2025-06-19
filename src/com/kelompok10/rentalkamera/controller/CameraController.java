@@ -23,6 +23,10 @@ public class CameraController {
         return cameraDAO.updateCamera(camera);
     }
 
+    public List<Camera> searchCamera(String keyword) {
+        return cameraDAO.searchCamera(keyword);
+    }
+
     public boolean hapusKamera(int id) {
         return cameraDAO.deleteCamera(id);
     }

@@ -68,13 +68,11 @@ public class LoginForm extends JFrame {
                     Person user = userDAO.getByEmail(email);
                     JOptionPane.showMessageDialog(null, "Login berhasil sebagai: " + user.getRole());
 
-                    // TODO: Arahkan ke dashboard sesuai role
-                    if (user.getRole().equals("admin")) {
-                        // new AdminDashboard(user).setVisible(true);
-                        JOptionPane.showMessageDialog(null, "Welcome Admin: " + user.getUsername());
+                    // Redirect to dashboard according to role
+                    if (user.getRole().equalsIgnoreCase("admin")) {
+                        new AdminDashboard(user).setVisible(true);
                     } else {
-                        // new UserDashboard(user).setVisible(true);
-                        JOptionPane.showMessageDialog(null, "Welcome User: " + user.getUsername());
+                        new UserDashboard(user).setVisible(true);
                     }
 
                     dispose(); // tutup form login
